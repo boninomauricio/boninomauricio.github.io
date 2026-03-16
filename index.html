@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <audio id="music" src="audio.mp4"></audio>
+    <button id="muteBtn" class="mute-btn hidden">🔊</button>
+    <div class="background" id="background"></div>
+    <div class="container">
+      <button class="enter-btn" id="enterBtn">click to enter...</button>
+      <img src="sword.png" class="minecraft-sword hidden" id="sword" />
+      <div class="socials hidden" id="socials">
+        <button class="social-btn" data-copy="maustillalive">
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg"
+          />
+        </button>
+        <button class="social-btn" data-copy="mauricioboninno">
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg"
+          />
+        </button>
+        <button class="social-btn" data-copy="mauricioboninno">
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+          />
+        </button>
+        <button
+          class="social-btn"
+          data-copy="31necxuslxro3alskw73mnsfrioa?si=59f21ef2469b459c"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/spotify.svg"
+          />
+        </button>
+      </div>
+      <div class="copy-notification" id="copyNotification">user copied</div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
