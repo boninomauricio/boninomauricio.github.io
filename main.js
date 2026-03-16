@@ -45,13 +45,29 @@ const showNotification = text => {
   setTimeout(() => elements.notification.classList.remove("show"), 2000);
 };
 
-const handleCopy = ({ currentTarget }) => {
-
+const handleCopy = async ({ currentTarget }) => {
   const { copy } = currentTarget.dataset;
 
-  navigator.clipboard.writeText(copy);
-  showNotification(copy);
-
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(copy);
+      showNotification(copy);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  } else {
+    const textArea = document.createElement("textarea");
+    textArea.value = copy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showNotification(copy);
+    } catch (err) {
+      alert("Failed to copy.");
+    }
+    document.body.removeChild(textArea);
+  }
 };
 
 const handleEnter = () => {
