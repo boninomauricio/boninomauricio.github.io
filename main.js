@@ -49,7 +49,7 @@ const handleCopy = ({ currentTarget }) => {
 
   const { copy } = currentTarget.dataset;
 
-  elements.navigator.clipboard.writeText(copy);
+  navigator.clipboard.writeText(copy);
   showNotification(copy);
 
 };
