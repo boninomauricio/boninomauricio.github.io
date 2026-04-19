@@ -38,7 +38,6 @@ const showSocials = () => {
 };
 
 const showNotification = text => {
-
   elements.notification.textContent = `copied to clipboard`;
   elements.notification.classList.add("show");
 
