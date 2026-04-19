@@ -1,0 +1,49 @@
+:root {
+    --primary-color: #c300ff;
+    --glow-color: rgba(255, 0, 0, 0.5);
+    --bg-color: #000000;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    perspective: 1200px;
+    cursor: pointer;
+}
+
+#heart-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.text-unit {
+    position: absolute;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--glow-color);
+    user-select: none;
+    will-change: transform, opacity;
+    top: 0;
+    left: 0;
+}
+
+.explosion-heart {
+    position: absolute;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    user-select: none;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transform: translate(-50%, -50%);
+}
