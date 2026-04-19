@@ -1,121 +1,121 @@
-const container = document.getElementById('heart-container');
-const text = "priscilla";
-const totalElements = 90;
-const elements = [];
+class HeartAnimation {
+    constructor() {
+        this.container = document.getElementById('heart-container');
+        this.text = "priscilla";
+        this.elements = [];
+        this.rotation = 0;
+        
+        this.updateConfig();
+        this.init();
+        this.bindEvents();
+        this.animate();
+    }
 
-let width = window.innerWidth / 2;
-let height = window.innerHeight / 2;
+    updateConfig() {
+        this.width = window.innerWidth / 2;
+        this.height = window.innerHeight / 2;
+        this.isMobile = window.innerWidth < 768;
+        this.totalElements = this.isMobile ? 60 : 90;
+        this.scaleFactor = this.isMobile ? 12 : 18;
+    }
 
-function init() {
-    container.innerHTML = '';
-    for (let i = 0; i < totalElements; i++) {
-        const span = document.createElement('span');
-        span.className = 'text-unit';
-        span.innerText = text;
-        container.appendChild(span);
-        elements.push({
-            el: span,
-            angle: (i / totalElements) * Math.PI * 2
+    init() {
+        this.container.innerHTML = '';
+        this.elements = [];
+
+        for (let i = 0; i < this.totalElements; i++) {
+            const span = document.createElement('span');
+            span.className = 'text-unit';
+            span.innerText = this.text;
+            this.container.appendChild(span);
+
+            this.elements.push({
+                el: span,
+                angle: (i / this.totalElements) * Math.PI * 2
+            });
+        }
+    }
+
+    animate = () => {
+        this.rotation += 0.004;
+        
+        const perspectiveAngle = -0.7;
+        const cosP = Math.cos(perspectiveAngle);
+        const sinP = Math.sin(perspectiveAngle);
+
+        this.elements.forEach(({ el, angle }) => {
+            const t = angle + this.rotation;
+
+            let x = 16 * Math.pow(Math.sin(t), 3);
+            let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+            x *= this.scaleFactor;
+            y *= this.scaleFactor;
+
+            const xFinal = x * cosP;
+            const zFinal = x * sinP;
+            const depthEffect = (zFinal + 200) / 400; // Normalizado 0 a 1
+
+            el.style.transform = `
+                translate3d(${this.width + xFinal}px, ${this.height + y}px, ${zFinal}px)
+                rotateY(${-perspectiveAngle}rad)
+                scale(${0.6 + depthEffect * 0.4})
+            `;
+            el.style.opacity = 0.2 + depthEffect * 0.8;
+        });
+
+        requestAnimationFrame(this.animate);
+    }
+
+    createExplosion(x, y) {
+        const fragment = document.createDocumentFragment();
+        const count = 15;
+
+        for (let i = 0; i < count; i++) {
+            const heart = document.createElement('span');
+            heart.className = 'explosion-heart';
+            heart.innerText = '<3';
+            
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 40 + Math.random() * 80;
+            const destX = Math.cos(angle) * velocity;
+            const destY = Math.sin(angle) * velocity;
+
+            Object.assign(heart.style, {
+                left: `${x}px`,
+                top: `${y}px`,
+                transition: 'transform 1s cubic-bezier(0.1, 0.5, 0.3, 1), opacity 1s ease-out'
+            });
+
+            fragment.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translate(-50%, -50%) translate3d(${destX}px, ${destY}px, 0px) scale(${Math.random() * 0.6 + 0.3})`;
+                heart.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => heart.remove(), 1000);
+        }
+        document.body.appendChild(fragment);
+    }
+
+    bindEvents() {
+        document.body.addEventListener('click', (e) => {
+            this.createExplosion(e.clientX, e.clientY);
+            
+            const hue = Math.floor(Math.random() * 360);
+            const color = `hsl(${hue}, 100%, 60%)`;
+            
+            document.documentElement.style.setProperty('--primary-color', color);
+            document.documentElement.style.setProperty('--glow-color', `${color}80`);
+        });
+
+        window.addEventListener('resize', () => {
+            const oldTotal = this.totalElements;
+            this.updateConfig();
+            if (oldTotal !== this.totalElements) this.init();
         });
     }
 }
 
-let rotation = 0;
-
-function draw() {
-    rotation += 0.004; 
-
-    elements.forEach((item) => {
-        const t = item.angle + rotation;
-        
-        let x = 16 * Math.pow(Math.sin(t), 3);
-        let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-        
-        x *= 18;
-        y *= 18;
-
-        const perspectiveAngle = -0.7;
-        const xFinal = x * Math.cos(perspectiveAngle); 
-        const zFinal = x * Math.sin(perspectiveAngle); 
-        const yFinal = y;
-
-        const depthEffect = (zFinal + 200) / 400; 
-        
-        item.el.style.transform = `
-            translate3d(${width + xFinal}px, ${height + yFinal}px, ${zFinal}px)
-            rotateY(${-perspectiveAngle}rad)
-            scale(${0.7 + depthEffect * 0.5})
-        `;
-        item.el.style.opacity = 0.2 + depthEffect * 0.8;
-    });
-    
-    requestAnimationFrame(draw);
-}
-
-function createExplosion(x, y) {
-    const numberOfHearts = 15;
-
-    for (let i = 0; i < numberOfHearts; i++) {
-        const heart = document.createElement('span');
-        heart.className = 'explosion-heart';
-        heart.innerText = '<3';
-        
-        heart.style.left = `${x}px`;
-        heart.style.top = `${y}px`;
-
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = 50 + Math.random() * 100;
-        
-        const destinationX = Math.cos(angle) * velocity;
-        const destinationY = Math.sin(angle) * velocity;
-
-        heart.style.transition = 'transform 1s cubic-bezier(0.1, 0.5, 0.3, 1), opacity 1s ease-out';
-        
-        document.body.appendChild(heart);
-
-        void heart.offsetHeight; 
-
-        const finalScale = 0.3 + Math.random() * 0.7;
-        heart.style.transform = `translate(-50%, -50%) translate3d(${destinationX}px, ${destinationY}px, 0px) scale(${finalScale})`;
-        heart.style.opacity = '0';
-
-        setTimeout(() => heart.remove(), 1000);
-    }
-}
-
-document.body.addEventListener('click', (event) => {
-    createExplosion(event.clientX, event.clientY);
-});
-
-window.addEventListener('resize', () => {
-    width = window.innerWidth / 2;
-    height = window.innerHeight / 2;
-});
-
-async function getInstagramStats() {
-    const username = 'priscilaaolaz';
-    const followersEl = document.getElementById('followers-count');
-    const followingEl = document.getElementById('following-count');
-
-    try {
-        const response = await fetch(`https://api.socialcounts.org/instagram-live-follower-count/${username}`);
-        const data = await response.json();
-        
-        if (data && data.followers !== undefined) {
-            const formatter = Intl.NumberFormat('en-US', { notation: 'compact' });
-            followersEl.innerText = formatter.format(data.followers);
-            followingEl.innerText = formatter.format(data.following);
-        } else {
-            throw new Error("Datos no encontrados");
-        }
-        
-    } catch (error) {
-        console.error("Error obteniendo datos reales:", error);
-        followersEl.innerText = "1.5k"; 
-        followingEl.innerText = "800";
-    }
-}
-
-getInstagramStats();
-init();
-draw();
+new HeartAnimation();
