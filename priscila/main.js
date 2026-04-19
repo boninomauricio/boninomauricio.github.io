@@ -67,37 +67,47 @@ class HeartAnimation {
         requestAnimationFrame(this.animate);
     }
 
-    createExplosion(x, y) {
-        const fragment = document.createDocumentFragment();
-        const count = 15;
+createExplosion(x, y) {
+    const fragment = document.createDocumentFragment();
 
-        for (let i = 0; i < count; i++) {
-            const heart = document.createElement('span');
-            heart.className = 'explosion-heart';
-            heart.innerText = '<3';
-            
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 40 + Math.random() * 80;
-            const destX = Math.cos(angle) * velocity;
-            const destY = Math.sin(angle) * velocity;
+    const count = this.isMobile ? 25 : 40;
+    const scale = this.isMobile ? 2.5 : 4;
 
-            Object.assign(heart.style, {
-                left: `${x}px`,
-                top: `${y}px`,
-                transition: 'transform 1s cubic-bezier(0.1, 0.5, 0.3, 1), opacity 1s ease-out'
-            });
+    for (let i = 0; i < count; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'explosion-heart';
+        heart.innerText = '<3';
 
-            fragment.appendChild(heart);
+        const t = (i / count) * Math.PI * 2;
 
-            setTimeout(() => {
-                heart.style.transform = `translate(-50%, -50%) translate3d(${destX}px, ${destY}px, 0px) scale(${Math.random() * 0.6 + 0.3})`;
-                heart.style.opacity = '0';
-            }, 10);
+        let dx = 16 * Math.pow(Math.sin(t), 3);
+        let dy = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
-            setTimeout(() => heart.remove(), 1000);
-        }
-        document.body.appendChild(fragment);
+        dx *= scale;
+        dy *= scale;
+
+        Object.assign(heart.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+            transition: 'transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1), opacity 0.9s ease-out'
+        });
+
+        fragment.appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.transform = `
+                translate(-50%, -50%)
+                translate3d(${dx}px, ${dy}px, 0px)
+                scale(${Math.random() * 0.5 + 0.5})
+            `;
+            heart.style.opacity = '0';
+        }, 10);
+
+        setTimeout(() => heart.remove(), 900);
     }
+
+    document.body.appendChild(fragment);
+}
 
     bindEvents() {
         document.body.addEventListener('click', (e) => {
