@@ -1,7 +1,7 @@
 class HeartAnimation {
     constructor() {
         this.container = document.getElementById('heart-container');
-        this.text = "priscilla";
+        this.text = "priscila";
         this.elements = [];
         this.rotation = 0;
         
