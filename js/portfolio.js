@@ -1,6 +1,6 @@
 (function() {
     const container = document.getElementById('vortexContainer');
-    if (!container) return;
+    if(!container) return;
 
     const cards = container.querySelectorAll('.vortex-card');
     const totalCards = cards.length;
