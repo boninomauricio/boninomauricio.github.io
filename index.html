@@ -1,82 +1,162 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <meta http-equiv="content-language" content="en-us">
-
-    <meta name="title" content="mau.lol">
-    <meta property="og:type" content="website">
-    <meta name="description" content="mau.lol">
-    <meta property="og:title" content="mau.lol">
-    <meta property="og:description" content="mau.lol">
-    <title>mau.lol</title>
-    <meta name="theme-color" content="#000000">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <script src="js/gsap.min.js"></script>
-
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>/</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #e8e8e8;
+    --strong: #fff;
+    color-scheme: dark;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "DejaVu Sans Mono", "JetBrains Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 24px 16px 48px; }
+  nav, footer { border-top: 1px dashed var(--fg); }
+  nav { border-bottom: 1px dashed var(--fg); padding: 14px 0; text-align: right; }
+  nav a { margin-left: 14px; }
+  footer { margin-top: 28px; padding-top: 14px; text-align: right; }
+  a { color: inherit; }
+  nav a { text-decoration: none; }
+  nav a:hover, nav a[aria-current="page"] { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--strong); outline-offset: 2px; }
+  main { padding: 28px 0 0; min-height: 260px; }
+  h1 { color: var(--strong); font-size: 1.7rem; line-height: 1.2; margin: 0 0 10px; }
+  h2 { color: var(--strong); font-size: 1.7rem; line-height: 1.2; margin: 28px 0 6px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li::before { content: "- "; }
+  p { margin: 0 0 16px; max-width: 54ch; }
+  pre { margin: 0; font: inherit; overflow-x: auto; }
+  .cow { display: flex; justify-content: center; margin: 28px 0 24px; font-size: 14px; }
+  .pgp { font-size: 14px; line-height: 1.9; word-break: break-all; white-space: pre-wrap; }
+  .links a { margin-right: 10px; }
+  .addr { word-break: break-all; font-size: 14px; }
+</style>
 </head>
-<body oncontextmenu="return false;">
+<body>
+<div class="wrap">
+  <nav id="nav">
+    <a href="#" data-r="">/</a>
+    <a href="#projs" data-r="projs">/projs</a>
+    <a href="#who" data-r="who">/who</a>
+    <a href="#p2p" data-r="p2p">/p2p</a>
+  </nav>
 
-    <noscript>
-      <div style="width:100%;height:100%;background:#000;color:#fff;font-size:2em;z-index:9999!important;position:fixed;display:flex;align-items:center;justify-content:center;">
-        <p>This site requires JavaScript.</p>
-      </div>
-    </noscript>
+  <main id="app"></main>
 
-    <div class="pageTitle" style="opacity: 0;">
-      <span class="moon-symbol">✧</span>
-      <span><i>mau.lol</i></span>
-      <br>
-      <span class="fields"><i></i></span>
-    </div>
+  <footer>meet <a href="#who">me</a></footer>
+</div>
 
-    <div class="invertColors"></div>
-    <div class="blackFade"></div>
-    <img class="rainClouds" src="img/bg.gif" draggable="false" style="opacity: 1; visibility: inherit;">
+<script>
+  // Cambia estos datos por los tuyos
+  var EMAIL = "hello@mau.lol";
+  var WALLETS = [
+    { n: "usdt", a: "0x07640963d6ae5de7f785f865fdce4f2659cfbf52" },
+    { n: "btc", a: "16gN1aaEVhTqr2njsYyD3nzmusBcypEc7h" }
+  ];
 
-    <div class="portfolioWorks" style="opacity: 1; visibility: inherit;">
-      <div class="vortex-container" id="vortexContainer">
-        <div class="vortex-scene">
-          <div class="vortex-group" data-group="profiles">
-            <div id="card-francis" class="vortex-card" data-index="0" data-base-angle="0" data-profile="francis">
-              <div class="card-face">
-                <img class="card-image" src="https://images.unsplash.com/photo-1706384684950-398e97af024a?auto=format&fit=crop&w=800&q=80" alt="angel statue with white wings" draggable="false">
-                <div class="card-label">wings</div>
-              </div>
-            </div>
-            <div id="card-shaun" class="vortex-card" data-index="2" data-base-angle="3.141592653589793" data-profile="shaun">
-              <div class="card-face">
-                <img class="card-image" src="https://images.unsplash.com/photo-1598288385944-051b0cba8a29?auto=format&fit=crop&w=800&q=80" alt="gray concrete statue of a woman" draggable="false">
-                <div class="card-label">grace</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  function walletsHtml() {
+    return '<ul>' + WALLETS.map(function (w) {
+      return '<li><span class="addr">' + esc(w.a) + '</span></li>';
+    }).join('') + '</ul>' +
+    '<p class="links" style="margin-top:28px">' + WALLETS.map(function (w, i) {
+      return '<a href="#p2p" class="cp" data-i="' + i + '">' + w.n + '</a>';
+    }).join('') + '</p>';
+  }
 
-    <div class="vulgateClementine">
-      <div class="verse">
-        <p id="text"></p>
-      </div>
-    </div>
+  function copyText(t) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).catch(fallback);
+    else fallback();
+  }
 
-    <div class="flicker"></div>
-    <div class="saturate"></div>
-    <div class="coloradjust"></div>
-    <div class="contrastadjust"></div>
-    <div class="matrix"></div>
-    <div class="matrix2"></div>
-    <div class="matrix3"></div>
-    <div class="matrix4"></div>
-    <div class="matrix5"></div>
+  var COW = [
+    " -----------",
+    "< meow meow >",
+    " -----------",
+    "       \\",
+    "        \\",
+    "         ╱|、",
+    "         (˚ˎ 。7",
+    "         |、˜〵",
+    "         じしˍ,)ノ"
+  ].join("\n");
 
+  var routes = {
+    "": {
+      title: "/",
+      html: '<h1>root@mau:~#</h1><div class="cow"><pre>' + esc(COW) + '</pre></div>'
+    },
+    projs: {
+      title: "/projs",
+      html: '<h1>projs</h1>'
+    },
+    who: {
+      title: "/who",
+      html: '<h1>who</h1>' +
+            '<p>i’m mau, a backend development enthusiast. i work with java and kotlin, and i have experience with databases like mongodb, redis, mysql and postgresql, i build apis, attend meetups and meet new people.</p>' +
+            '<p>i also write notes and articles about my projects on this blog, you can find them in their respective sections, and i like clean code.</p>' +
+            '<p class="links">' +
+            '<a href="https://x.com/" target="_blank" rel="noopener">x</a>' +
+            '<a href="https://discord.com/" target="_blank" rel="noopener">discord</a>' +
+            '<a href="https://github.com/" target="_blank" rel="noopener">github</a>' +
+            '</p>'
+    },
+    p2p: {
+      title: "/p2p",
+      html: '<h1>p2p</h1>' +
+            '<p>e-mail: <a href="mailto:' + EMAIL + '">' + EMAIL + '</a></p>' +
+            '<h2>address</h2>' + walletsHtml()
+    }
+  };
 
-<script src="js/portfolio.js"></script>
-<script src="js/quotes.js"></script>
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
-</body></html>
+  function render() {
+    var key = location.hash.replace(/^#/, "");
+    if (!routes.hasOwnProperty(key)) key = "";
+    var r = routes[key];
+    document.getElementById("app").innerHTML = r.html;
+    document.title = r.title;
+    document.querySelectorAll("#nav a").forEach(function (a) {
+      if (a.dataset.r === key) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    document.querySelectorAll(".cp").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var w = WALLETS[a.dataset.i];
+        copyText(w.a);
+        a.textContent = "copied!";
+        setTimeout(function () { a.textContent = w.n; }, 1500);
+      });
+    });
+    window.scrollTo(0, 0);
+  }
 
-
+  window.addEventListener("hashchange", render);
+  render();
+</script>
+</body>
+</html>
