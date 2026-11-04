@@ -46,7 +46,8 @@ pre { margin: 0; font: inherit; overflow-x: auto; }
 .pgp { font-size: 14px; line-height: 1.9; word-break: break-all; white-space: pre-wrap; }
 .links a { margin-right: 10px; }
 .addr { word-break: break-all; font-size: 14px; }
-.opts { display: flex; flex-wrap: wrap; }
+.opts { display: flex; flex-wrap: nowrap; white-space: nowrap; }
+.theme .ic { display: none; }
 .lang a, .theme a { margin: 0 14px 0 0; }
 .gsep { margin: 0 14px 0 0; }
 .lang a.on, .theme a.on { text-decoration: underline; }
@@ -62,3 +63,9 @@ pre { margin: 0; font: inherit; overflow-x: auto; }
   margin: 0;
 }
 footer { display: flex; justify-content: flex-end; align-items: baseline; }
+/* móvil: dark/light pasan a íconos para no agregar una línea */
+@media (max-width: 600px) {
+  .theme .tx { display: none; }
+  .theme .ic { display: inline; }
+  .lang a, .theme a, .gsep { margin-right: 8px; }
+}
