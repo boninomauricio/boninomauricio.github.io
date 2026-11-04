@@ -117,7 +117,8 @@ function render() {
   });
   document.querySelector('#nav [data-r="who"]').textContent = I18N[lang].whoNav;
   document.querySelector('#nav [data-r="projs"]').textContent = I18N[lang].projsNav;
-  document.title = key === "who" ? I18N[lang].whoNav : key === "projs" ? I18N[lang].projsNav : r.title;
+  var label = key === "who" ? I18N[lang].whoNav : key === "projs" ? I18N[lang].projsNav : r.title;
+  document.title = key === "" ? r.title : "mau.lol - " + label;
   document.querySelectorAll("#nav a").forEach(function (a) {
     if (a.dataset.r === key) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
