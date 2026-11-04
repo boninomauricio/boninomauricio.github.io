@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>mau.lol</title>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}
+try{if(sessionStorage.getItem("gate")!=="1")document.documentElement.dataset.gate="on"}catch(e){document.documentElement.dataset.gate="on"}</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,6 +23,20 @@
   <main id="app"></main>
 
   <footer id="foot"></footer>
+</div>
+
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gcmd">
+  <div class="gate-box">
+    <p class="gate-cmd" id="gcmd"></p>
+    <p class="gate-ask" id="gask"></p>
+    <canvas id="gcv" width="240" height="64" aria-hidden="true"></canvas>
+    <pre id="gtxt" class="gate-txt" hidden></pre>
+    <form class="gate-form" id="gform" autocomplete="off">
+      <span>&gt;</span><input id="gin" type="text" maxlength="5" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="captcha">
+    </form>
+    <p class="gate-msg" id="gmsg" aria-live="polite"></p>
+    <a href="#" id="gnew"></a>
+  </div>
 </div>
 
 <script src="script.js"></script>

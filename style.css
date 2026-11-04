@@ -3,6 +3,7 @@
   --fg: #e0e0e0;
   --strong: #fff;
   --snow: 255,255,255;
+  --veil: rgba(58,58,58,.55);
   color-scheme: dark;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
@@ -14,6 +15,7 @@
   --fg: #5a4630;
   --strong: #2e1f10;
   --snow: 140,98,56;
+  --veil: rgba(245,234,214,.6);
   color-scheme: light;
 }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
@@ -69,3 +71,18 @@ footer { display: flex; justify-content: flex-end; align-items: baseline; }
   .theme .ic { display: inline; }
   .lang a, .theme a, .gsep { margin-right: 8px; }
 }
+
+/* captcha de entrada */
+#gate { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; padding: 16px; background: var(--veil); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: opacity .4s ease; }
+html[data-gate="on"] #gate { display: flex; }
+#gate.out { opacity: 0; pointer-events: none; }
+.gate-box { width: 100%; max-width: 420px; background: var(--bg); border-top: 1px dashed var(--fg); border-bottom: 1px dashed var(--fg); padding: 18px 14px; }
+.gate-box p { margin: 0 0 12px; max-width: none; }
+.gate-cmd { color: var(--strong); }
+.gate-box canvas { display: block; max-width: 100%; margin: 0 0 12px; }
+.gate-txt { font-size: 34px; letter-spacing: .3em; color: var(--strong); margin: 0 0 12px; }
+.gate-form { display: flex; gap: 8px; align-items: baseline; border-top: 1px dashed var(--fg); padding-top: 10px; margin-bottom: 10px; }
+.gate-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: inherit; font: inherit; font-size: 16px; outline: none; caret-color: var(--strong); letter-spacing: .15em; }
+.gate-msg { min-height: 1.6em; font-size: 14px; }
+#gnew { font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { #gate { transition: none; } }
