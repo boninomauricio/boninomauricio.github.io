@@ -1,5 +1,6 @@
 // Cambia estos datos por los tuyos
 var EMAIL = "hello@mau.lol";
+var INVITE = "https://discord.com/oauth2/authorize?client_id=1507540455749980230&permissions=32&integration_type=0&scope=bot";
 var WALLETS = [
   { n: "usdt", a: "0x07640963d6ae5de7f785f865fdce4f2659cfbf52" },
   { n: "btc", a: "16gN1aaEVhTqr2njsYyD3nzmusBcypEc7h" }
@@ -52,6 +53,7 @@ var I18N = {
     whoNav: "/who",
     projsNav: "/projs",
     projs: "projs",
+    invite: "invite",
     wings: "a multifunctional discord bot with built-in artificial intelligence that moderates the server it’s in. it tracks argentine inflation in real time, has its own channel where it chats with anyone who talks to it, replies with up-to-date data, and collects and stores data only when the user authorizes it.",
     copied: "copied!",
     foot: 'meet <a href="#who">me</a>'
@@ -63,6 +65,7 @@ var I18N = {
     whoNav: "/quien",
     projsNav: "/proyectos",
     projs: "proyectos",
+    invite: "invitar",
     wings: "un bot de discord multifuncional con inteligencia artificial incorporada que modera el servidor en el que esté. trackea la inflación argentina en tiempo real, tiene su propio canal donde chatea con quien le hable, responde con datos actualizados y recopila y guarda datos solo si el usuario lo autoriza.",
     copied: "¡copiado!",
     foot: 'conóce<a href="#who">me</a>'
@@ -80,7 +83,8 @@ var routes = {
   },
   projs: {
     title: "/projs",
-    html: '<h1>{{projs}}</h1><h2>wings</h2><p>{{wings}}</p>'
+    html: '<h1>{{projs}}</h1><h2>wings</h2><p>{{wings}}</p>' +
+          '<p class="links"><a href="#projs" class="inv">{{invite}}</a></p>'
   },
   who: {
     title: "/who",
@@ -130,6 +134,14 @@ function render() {
       copyText(w.a);
       a.textContent = I18N[lang].copied;
       setTimeout(function () { a.textContent = w.n; }, 1500);
+    });
+  });
+  document.querySelectorAll(".inv").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      copyText(INVITE);
+      a.textContent = I18N[lang].copied;
+      setTimeout(function () { a.textContent = I18N[lang].invite; }, 1500);
     });
   });
   window.scrollTo(0, 0);
